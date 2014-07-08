@@ -186,7 +186,7 @@
 			this.nextItem = !this.options.circular && this.end ? this.current : this.items[ this.currentIdx ];
 
 			this.items.forEach( function( el, i ) { el.style.display = 'none'; } );
-			if ( !this.support  || this.forceNoSupport ) {
+			if ( !this.support  || this.options.forceNoSupport ) {
 				this._layoutNoSupport( dir );
 			} else {
 				this._layout( dir );
