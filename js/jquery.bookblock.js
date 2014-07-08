@@ -4,7 +4,7 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
@@ -41,7 +41,7 @@
 	* Copyright 2012 @louis_remi
 	* Licensed under the MIT license.
 	*
-	* This saved you an hour of work? 
+	* This saved you an hour of work?
 	* Send me music http://www.amazon.co.uk/wishlist/HNTU0468LQON
 	*/
 	var $event = $.event,
@@ -175,7 +175,7 @@
 				$( this.options.prevEl ).on( 'click.bookblock touchstart.bookblock', function() { self._action( 'prev' ); return false; } );
 			}
 
-			$window.on( 'debouncedresize', function() {		
+			$window.on( 'debouncedresize', function() {
 				// update width value
 				self.elWidth = self.$el.width();
 			} );
@@ -221,8 +221,8 @@
 			}
 
 			this.$nextItem = !this.options.circular && this.end ? this.$current : this.$items.eq( this.current );
-			
-			if ( !this.support ) {
+
+			if ( !this.support || this.forceNoSupport ) {
 				this._layoutNoSupport( dir );
 			} else {
 				this._layout( dir );
@@ -257,7 +257,7 @@
 
 			this.$items.hide();
 			this.$el.prepend( $s_left, $s_middle, $s_right );
-			
+
 			$s_middle.css({
 				transitionDuration: speed + 'ms',
 				transitionTimingFunction : this.options.easing
@@ -338,7 +338,7 @@
 				}
 			}, 25 );
 		},
-		// adds the necessary sides (bb-page) to the layout 
+		// adds the necessary sides (bb-page) to the layout
 		_addSide : function( side, dir ) {
 			var $side;
 
@@ -511,9 +511,9 @@
 				}
 				instance[ options ].apply( instance, args );
 			});
-		} 
+		}
 		else {
-			this.each(function() {	
+			this.each(function() {
 				var instance = $.data( this, 'bookblock' );
 				if ( instance ) {
 					instance._init();

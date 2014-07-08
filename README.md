@@ -41,6 +41,8 @@ prevEl : '',
 autoplay : false,
 // time (ms) between page switch, if autoplay is true
 interval : 3000,
+// force no support Mode
+forceNoSupport: false,
 // callback after the flip transition
 // old is the index of the previous item
 // page is the current item´s index

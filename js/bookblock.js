@@ -4,12 +4,12 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
 ;( function( window ) {
-	
+
 	'use strict';
 
 	// global
@@ -33,7 +33,7 @@
 	});
 
 	function extend( a, b ) {
-		for( var key in b ) { 
+		for( var key in b ) {
 			if( b.hasOwnProperty( key ) ) {
 				a[key] = b[key];
 			}
@@ -77,6 +77,8 @@
 			autoplay : false,
 			// time (ms) between page switch, if autoplay is true
 			interval : 3000,
+			// force no Support Mode
+			forceNoSupport : false,
 			// callback after the flip transition
 			// old is the index of the previous item
 			// page is the current item´s index
@@ -138,7 +140,7 @@
 				document.querySelector( this.options.prevEl ).addEventListener( 'click', function() { self._action( 'prev' ); return false; } );
 				document.querySelector( this.options.prevEl ).addEventListener( 'touchstart', function() { self._action( 'prev' ); return false; } );
 			}
-			
+
 			window.addEventListener( 'resize', function() { self._resizeHandler(); } );
 
 		},
@@ -182,9 +184,9 @@
 			}
 
 			this.nextItem = !this.options.circular && this.end ? this.current : this.items[ this.currentIdx ];
-			
+
 			this.items.forEach( function( el, i ) { el.style.display = 'none'; } );
-			if ( !this.support ) {
+			if ( !this.support  || this.forceNoSupport ) {
 				this._layoutNoSupport( dir );
 			} else {
 				this._layout( dir );
@@ -226,7 +228,7 @@
 
 			s_middle.style.transitionDuration = speed + 'ms';
 			s_middle.style.transitionTimingFunction = this.options.easing;
-			
+
 			s_middle.addEventListener( this.transEndEventName, function( event ) {
 				if ( (" " + event.target.className + " ").replace(/[\n\t]/g, " ").indexOf(" bb-page ") > -1 ) {
 					Array.prototype.slice.call( self.el.querySelectorAll( '.bb-page' ) ).forEach( function( el, i ) {
@@ -278,7 +280,7 @@
 				}
 			}, 25 );
 		},
-		// adds the necessary sides (bb-page) to the layout 
+		// adds the necessary sides (bb-page) to the layout
 		_addSide : function( side, dir ) {
 			var sideEl = document.createElement( 'div' );
 			sideEl.className = 'bb-page';
@@ -328,7 +330,7 @@
 						</div>
 						*/
 					var frontinner = dir === 'next' ? this.current.innerHTML : this.nextItem.innerHTML;
-					var backinner = dir === 'next' ? this.nextItem.innerHTML : this.current.innerHTML; 
+					var backinner = dir === 'next' ? this.nextItem.innerHTML : this.current.innerHTML;
 					sideEl.innerHTML = '<div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + frontinner + '</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + backinner + '</div></div><div class="bb-flipoverlay"></div></div></div>';
 					break;
 				case 'right':
